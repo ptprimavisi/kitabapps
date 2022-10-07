@@ -1,0 +1,44 @@
+<ion-header translucent>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="history.canGoBack" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!history.canGoBack"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>{{ 'EDIT' | translate }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+	<form [formGroup]="formGroup" (ngSubmit)="edit()" *ngIf="item$ | async as row">
+		<ion-list lines="full">
+			<!-- userlevelid -->
+			<ion-item *ngIf="row.userlevelid.visible">
+				<ion-label position="stacked">{{ '__tables.userlevels.fields.userlevelid.caption' | translate }}</ion-label>
+				<ion-text class="field field-userlevelid" *ngIf="row.userlevelid.visible">
+					<span>{{ row.userlevelid.value | localNumber:'1.0-0' }}</span>
+				</ion-text>
+			</ion-item>
+			<div *ngIf="submitted && row.userlevelid.visible && f.userlevelid.errors" class="ion-padding validate-error">
+				<div *ngIf="f.userlevelid.errors.required">
+					<ion-text [color]="dbapp.color.danger" [translate]="'ENTER_REQUIRED_FIELD'" [translateParams]="{ s: '__tables.userlevels.fields.userlevelid.caption' | translate }"></ion-text>
+				</div>
+			</div>
+			<!-- userlevelname -->
+			<ion-item *ngIf="row.userlevelname.visible">
+				<ion-label position="stacked">{{ '__tables.userlevels.fields.userlevelname.caption' | translate }}</ion-label>
+				<ion-input #userlevelname formControlName="userlevelname" size="30" maxlength="255" placeholder="{{ '__tables.userlevels.fields.userlevelname.caption' | translate }}"></ion-input>
+			</ion-item>
+			<div *ngIf="submitted && row.userlevelname.visible && f.userlevelname.errors" class="ion-padding validate-error">
+				<div *ngIf="f.userlevelname.errors.required">
+					<ion-text [color]="dbapp.color.danger" [translate]="'ENTER_REQUIRED_FIELD'" [translateParams]="{ s: '__tables.userlevels.fields.userlevelname.caption' | translate }"></ion-text>
+				</div>
+			</div>
+		</ion-list>
+		<ion-row>
+			<ion-col>
+				<ion-button type="submit" [color]="dbapp.color.primary" expand="block" [disabled]="saving">{{ 'EDIT_BUTTON' | translate }}<ion-spinner *ngIf="saving" [name]="dbapp.icon.save"></ion-spinner></ion-button>
+			</ion-col>
+		</ion-row>
+	</form>
+</ion-content>

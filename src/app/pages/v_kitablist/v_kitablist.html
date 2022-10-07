@@ -1,0 +1,61 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="foreignKey" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!foreignKey"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+		{{ '__tables.v_kitab.caption' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+			[pullingIcon]="dbapp.icon.pull"
+			pullingText="{{ 'PULL_TO_REFRESH' | translate }}"
+			[refreshingSpinner]="dbapp.spinner.refreshing"
+			refreshingText="{{ 'REFRESHING' | translate }}">
+		</ion-refresher-content>
+	</ion-refresher>
+	<ng-container *ngIf="permissions?.search.v_kitab && !foreignKey">
+		<ion-searchbar #searchbar
+			(ionChange)="getItems($event)"
+			debounce="500"
+			placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}">
+		</ion-searchbar>
+	</ng-container>
+	<ion-list>
+		<ng-template #record let-item="item">
+			<ion-thumbnail slot="start" *ngIf="item.sampul?.url">
+				<ion-img *ngIf="item.sampul.url" [src]="item.sampul.listUrl | authFile | async"></ion-img>
+			</ion-thumbnail>
+			<ion-label>
+				<h2>{{ item.title }}</h2>
+				<p class="field field-pengarang" *ngIf="item.pengarang.visible">
+					<span class="field-caption">{{ '__tables.v_kitab.fields.pengarang.caption' | translate }}</span>
+					<span>{{ item.pengarang.value }}</span>
+				</p>
+				<p class="field field-thn-terbit" *ngIf="item.thn_terbit.visible">
+					<span class="field-caption">{{ '__tables.v_kitab.fields.thn_terbit.caption' | translate }}</span>
+					<span>{{ item.thn_terbit.value | localNumber:'1.0-0' }}</span>
+				</p>
+			</ion-label>
+		</ng-template>
+		<ng-container *ngFor="let item of currentItems">
+			<ion-item>
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+		</ng-container>
+	</ion-list>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+		<ion-infinite-scroll-content
+			[loadingSpinner]="dbapp.spinner.loading"
+			loadingText="{{ 'LOADING_MORE' | translate }}">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>

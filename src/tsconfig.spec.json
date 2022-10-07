@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "baseUrl": "./",
+    "types": [
+      "jasmine",
+      "node",
+      "googlemaps"
+    ]
+  },
+  "files": [
+    "test.ts"
+  ],
+  "include": [
+    "polyfills.ts",
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
+}

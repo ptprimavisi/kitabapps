@@ -1,0 +1,110 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="foreignKey" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!foreignKey"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+		{{ '__tables.kitab_detil.caption' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+			[pullingIcon]="dbapp.icon.pull"
+			pullingText="{{ 'PULL_TO_REFRESH' | translate }}"
+			[refreshingSpinner]="dbapp.spinner.refreshing"
+			refreshingText="{{ 'REFRESHING' | translate }}">
+		</ion-refresher-content>
+	</ion-refresher>
+	<ion-list>
+		<ng-template #record let-item="item">
+			<ion-label>
+				<h2>{{ item.title }}</h2>
+				<p class="field field-id" *ngIf="item.id.visible">
+					<span class="field-caption">{{ '__tables.kitab_detil.fields.id.caption' | translate }}</span>
+					<span>{{ item.id.value }}</span>
+				</p>
+				<p class="field field-pid" *ngIf="item.pid.visible">
+					<span class="field-caption">{{ '__tables.kitab_detil.fields.pid.caption' | translate }}</span>
+					<span>{{ item.pid.value }}</span>
+				</p>
+				<p class="field field-judul" *ngIf="item.judul.visible">
+					<span class="field-caption">{{ '__tables.kitab_detil.fields.judul.caption' | translate }}</span>
+					<span>{{ item.judul.value }}</span>
+				</p>
+				<ng-container *ngIf="item.gambar.visible">
+					<div class="field field-gambar" *ngFor="let file of item.gambar.files">
+							<ng-container [ngSwitch]="file.fileType">
+								<div *ngSwitchCase="'video'">
+									<video [src]="file.url | authFile | async" controls preload="metadata" playsinline class="field-video-player" width="100%">
+										<source [src]="file.url | authFile | async" [type]="file.type">
+									</video>
+								</div>
+								<div *ngSwitchCase="'audio'">
+									<audio [src]="file.url | authFile | async" controls="controls" class="field-audio-player"></audio>
+								</div>
+								<div *ngSwitchCase="'image'">
+									<ion-img [src]="file.listUrl | authFile | async" class="field-image"></ion-img>
+								</div>
+								<div *ngSwitchCase="'hyperlink'">
+									<a (click)="openUrl(file.url); false" [innerHTML]="file.value" class="field-hyperlink"></a>
+								</div>
+							</ng-container>
+					</div>
+				</ng-container>
+				<p class="field field-keterangan" *ngIf="item.keterangan.visible">
+					<span class="field-caption">{{ '__tables.kitab_detil.fields.keterangan.caption' | translate }}</span>
+					<span>{{ item.keterangan.value }}</span>
+				</p>
+				<p class="field field-tag" *ngIf="item.tag.visible">
+					<span class="field-caption">{{ '__tables.kitab_detil.fields.tag.caption' | translate }}</span>
+					<span>{{ item.tag.value }}</span>
+				</p>
+				<p class="field field-rujukan" *ngIf="item.rujukan.visible">
+					<span class="field-caption">{{ '__tables.kitab_detil.fields.rujukan.caption' | translate }}</span>
+					<span>{{ item.rujukan.value }}</span>
+				</p>
+				<p class="field field-aktif" *ngIf="item.aktif.visible">
+					<span class="field-caption">{{ '__tables.kitab_detil.fields.aktif.caption' | translate }}</span>
+					<span>{{ item.aktif.value }}</span>
+				</p>
+			</ion-label>
+		</ng-template>
+		<ion-item-sliding *ngFor="let item of currentItems">
+			<ion-item *ngIf="permissions?.view.kitab_detil" button [routerLink]="['/kitab_detilview', item.id.dbValue]">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item *ngIf="!permissions?.view.kitab_detil">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item-options>
+				<ion-item-option *ngIf="permissions?.delete.kitab_detil" [color]="dbapp.color.medium" (click)="delete(item)">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.delete"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.add.kitab_detil" [color]="dbapp.color.medium" [routerLink]="['/kitab_detiladd', item.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.copy"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.edit.kitab_detil" [color]="dbapp.color.medium" [routerLink]="['/kitab_detiledit', item.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.edit"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+		<ion-infinite-scroll-content
+			[loadingSpinner]="dbapp.spinner.loading"
+			loadingText="{{ 'LOADING_MORE' | translate }}">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+	<ion-fab *ngIf="permissions?.add.kitab_detil" vertical="bottom" horizontal="end" slot="fixed" routerLink="/kitab_detiladd">
+		<ion-fab-button>
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+</ion-content>

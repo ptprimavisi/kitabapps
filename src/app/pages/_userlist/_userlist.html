@@ -1,0 +1,90 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="foreignKey" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!foreignKey"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+		{{ '__tables._user.caption' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+			[pullingIcon]="dbapp.icon.pull"
+			pullingText="{{ 'PULL_TO_REFRESH' | translate }}"
+			[refreshingSpinner]="dbapp.spinner.refreshing"
+			refreshingText="{{ 'REFRESHING' | translate }}">
+		</ion-refresher-content>
+	</ion-refresher>
+	<ion-list>
+		<ng-template #record let-item="item">
+			<ion-label>
+				<h2>{{ item.title }}</h2>
+				<p class="field field-id" *ngIf="item.id.visible">
+					<span class="field-caption">{{ '__tables._user.fields.id.caption' | translate }}</span>
+					<span>{{ item.id.value }}</span>
+				</p>
+				<p class="field field-nama" *ngIf="item.nama.visible">
+					<span class="field-caption">{{ '__tables._user.fields.nama.caption' | translate }}</span>
+					<span>{{ item.nama.value }}</span>
+				</p>
+				<p class="field field-username" *ngIf="item.username.visible">
+					<span class="field-caption">{{ '__tables._user.fields.username.caption' | translate }}</span>
+					<span>{{ item.username.value }}</span>
+				</p>
+				<p class="field field-password" *ngIf="item.password.visible">
+					<span class="field-caption">{{ '__tables._user.fields.password.caption' | translate }}</span>
+					<span>{{ item.password.value }}</span>
+				</p>
+				<p class="field field-keterangan" *ngIf="item.keterangan.visible">
+					<span class="field-caption">{{ '__tables._user.fields.keterangan.caption' | translate }}</span>
+					<span>{{ item.keterangan.value }}</span>
+				</p>
+				<p class="field field-level" *ngIf="item.level.visible">
+					<span class="field-caption">{{ '__tables._user.fields.level.caption' | translate }}</span>
+					<span>{{ item.level.value }}</span>
+				</p>
+				<p class="field field-pid" *ngIf="item.pid.visible">
+					<span class="field-caption">{{ '__tables._user.fields.pid.caption' | translate }}</span>
+					<span>{{ item.pid.value }}</span>
+				</p>
+			</ion-label>
+		</ng-template>
+		<ion-item-sliding *ngFor="let item of currentItems">
+			<ion-item *ngIf="permissions?.view._user" button [routerLink]="['/_userview', item.id.dbValue]">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item *ngIf="!permissions?.view._user">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item-options>
+				<ion-item-option *ngIf="permissions?.delete._user" [color]="dbapp.color.medium" (click)="delete(item)">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.delete"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.add._user" [color]="dbapp.color.medium" [routerLink]="['/_useradd', item.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.copy"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.edit._user" [color]="dbapp.color.medium" [routerLink]="['/_useredit', item.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.edit"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+		<ion-infinite-scroll-content
+			[loadingSpinner]="dbapp.spinner.loading"
+			loadingText="{{ 'LOADING_MORE' | translate }}">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+	<ion-fab *ngIf="permissions?.add._user" vertical="bottom" horizontal="end" slot="fixed" routerLink="/_useradd">
+		<ion-fab-button>
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+</ion-content>

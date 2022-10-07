@@ -1,0 +1,7 @@
+{
+	"name": "Kitab - Kitab",
+	"integrations": {
+		"cordova": {}
+	},
+	"type": "angular"
+}

@@ -1,0 +1,17 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="history.canGoBack" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!history.canGoBack"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>{{ 'SETTINGS_TITLE' | translate }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<form [formGroup]="form" *ngIf="settingsReady">
+		<ion-list>
+		</ion-list>
+	</form>
+</ion-content>

@@ -1,0 +1,95 @@
+<ion-header translucent>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="history.canGoBack" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!history.canGoBack"></ion-menu-button>
+		</ion-buttons>
+		<ion-title *ngIf="!key">{{ 'ADD' | translate }}</ion-title>
+		<ion-title *ngIf="key">{{ 'COPY' | translate }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+	<form [formGroup]="formGroup" (ngSubmit)="add()" *ngIf="item$ | async as row">
+		<ion-list lines="full">
+			<!-- nama -->
+			<ion-item *ngIf="row.nama.visible">
+				<ion-label position="stacked">{{ '__tables._user.fields.nama.caption' | translate }}</ion-label>
+				<ion-input #nama formControlName="nama" size="30" maxlength="255" placeholder="{{ '__tables._user.fields.nama.caption' | translate }}"></ion-input>
+			</ion-item>
+			<!-- username -->
+			<ion-item *ngIf="row.username.visible">
+				<ion-label position="stacked">{{ '__tables._user.fields.username.caption' | translate }}</ion-label>
+				<ion-input #username formControlName="username" size="30" maxlength="255" placeholder="{{ '__tables._user.fields.username.caption' | translate }}"></ion-input>
+			</ion-item>
+			<div *ngIf="submitted && row.username.visible && f.username.errors" class="ion-padding validate-error">
+				<div *ngIf="f.username.errors.required">
+					<ion-text [color]="dbapp.color.danger" [translate]="'ENTER_REQUIRED_FIELD'" [translateParams]="{ s: '__tables._user.fields.username.caption' | translate }"></ion-text>
+				</div>
+			</div>
+			<!-- password -->
+			<ion-item *ngIf="row.password.visible">
+				<ion-label position="stacked">{{ '__tables._user.fields.password.caption' | translate }}</ion-label>
+				<ion-input type="password" #password formControlName="password" size="30" maxlength="255" placeholder="{{ '__tables._user.fields.password.caption' | translate }}"></ion-input>
+			</ion-item>
+			<div *ngIf="submitted && row.password.visible && f.password.errors" class="ion-padding validate-error">
+				<div *ngIf="f.password.errors.required">
+					<ion-text [color]="dbapp.color.danger" [translate]="'ENTER_REQUIRED_FIELD'" [translateParams]="{ s: '__tables._user.fields.password.caption' | translate }"></ion-text>
+				</div>
+			</div>
+			<!-- keterangan -->
+			<ion-item *ngIf="row.keterangan.visible">
+				<ion-label position="stacked">{{ '__tables._user.fields.keterangan.caption' | translate }}</ion-label>
+				<ion-input #keterangan formControlName="keterangan" size="30" maxlength="255" placeholder="{{ '__tables._user.fields.keterangan.caption' | translate }}"></ion-input>
+			</ion-item>
+			<!-- level -->
+			<ion-item *ngIf="row.level.visible">
+				<ion-label position="stacked">{{ '__tables._user.fields.level.caption' | translate }}</ion-label>
+				<ionic-selectable #level
+					formControlName="level"
+					itemValueField="lf"
+					itemTextField="name"
+					[shouldStoreItemValue]="true"
+					clearButtonText="{{ 'CLEAR_BUTTON' | translate }}"
+					closeButtonText="{{ 'CANCEL_BUTTON' | translate }}"
+					confirmButtonText="{{ 'OK_BUTTON' | translate }}"
+					searchPlaceholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"
+					searchFailText="{{ 'SEARCH_FAIL_TEXT' | translate }}"
+					closeButtonSlot="start"
+					itemIconSlot="start"
+					[items]="items.lookupTables.level"
+					[canClear]="true"
+					placeholder="{{ '__tables._user.fields.level.caption' | translate }}"
+					data-field="level">
+				</ionic-selectable>
+			</ion-item>
+			<!-- pid -->
+			<ion-item *ngIf="row.pid.visible">
+				<ion-label position="stacked">{{ '__tables._user.fields.pid.caption' | translate }}</ion-label>
+				<ionic-selectable #pid
+					formControlName="pid"
+					itemValueField="lf"
+					itemTextField="name"
+					[shouldStoreItemValue]="true"
+					clearButtonText="{{ 'CLEAR_BUTTON' | translate }}"
+					closeButtonText="{{ 'CANCEL_BUTTON' | translate }}"
+					confirmButtonText="{{ 'OK_BUTTON' | translate }}"
+					searchPlaceholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"
+					searchFailText="{{ 'SEARCH_FAIL_TEXT' | translate }}"
+					closeButtonSlot="start"
+					itemIconSlot="start"
+					[items]="items.lookupTables.pid"
+					[canClear]="true"
+					placeholder="{{ '__tables._user.fields.pid.caption' | translate }}"
+					data-field="pid">
+				</ionic-selectable>
+			</ion-item>
+		</ion-list>
+		<ion-row>
+			<ion-col>
+				<ion-button type="submit" [color]="dbapp.color.primary" expand="block" [disabled]="saving">{{ 'ADD_BUTTON' | translate }}<ion-spinner *ngIf="saving" [name]="dbapp.icon.save"></ion-spinner></ion-button>
+			</ion-col>
+		</ion-row>
+	</form>
+</ion-content>

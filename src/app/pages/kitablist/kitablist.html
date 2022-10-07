@@ -1,0 +1,78 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="foreignKey" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!foreignKey"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+		{{ '__tables.kitab.caption' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+			[pullingIcon]="dbapp.icon.pull"
+			pullingText="{{ 'PULL_TO_REFRESH' | translate }}"
+			[refreshingSpinner]="dbapp.spinner.refreshing"
+			refreshingText="{{ 'REFRESHING' | translate }}">
+		</ion-refresher-content>
+	</ion-refresher>
+	<ion-list>
+		<ng-template #record let-item="item">
+			<ion-label>
+				<h2>{{ item.title }}</h2>
+				<p class="field field-judul" *ngIf="item.judul.visible">
+					<span class="field-caption">{{ '__tables.kitab.fields.judul.caption' | translate }}</span>
+					<span>{{ item.judul.value }}</span>
+				</p>
+				<p class="field field-pengarang" *ngIf="item.pengarang.visible">
+					<span class="field-caption">{{ '__tables.kitab.fields.pengarang.caption' | translate }}</span>
+					<span>{{ item.pengarang.value }}</span>
+				</p>
+				<p class="field field-thn-terbit" *ngIf="item.thn_terbit.visible">
+					<span class="field-caption">{{ '__tables.kitab.fields.thn_terbit.caption' | translate }}</span>
+					<span>{{ item.thn_terbit.value | localNumber:'1.0-0' }}</span>
+				</p>
+				<p class="field field-aktif" *ngIf="item.aktif.visible">
+					<span class="field-caption">{{ '__tables.kitab.fields.aktif.caption' | translate }}</span>
+					<span>{{ item.aktif.value }}</span>
+				</p>
+			</ion-label>
+		</ng-template>
+		<ion-item-sliding *ngFor="let item of currentItems">
+			<ion-item *ngIf="permissions?.view.kitab" button [routerLink]="['/kitabview', item.id.dbValue]">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item *ngIf="!permissions?.view.kitab">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item-options>
+				<ion-item-option *ngIf="permissions?.delete.kitab" [color]="dbapp.color.medium" (click)="delete(item)">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.delete"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.add.kitab" [color]="dbapp.color.medium" [routerLink]="['/kitabadd', item.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.copy"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.edit.kitab" [color]="dbapp.color.medium" [routerLink]="['/kitabedit', item.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.edit"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+		<ion-infinite-scroll-content
+			[loadingSpinner]="dbapp.spinner.loading"
+			loadingText="{{ 'LOADING_MORE' | translate }}">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+	<ion-fab *ngIf="permissions?.add.kitab" vertical="bottom" horizontal="end" slot="fixed" routerLink="/kitabadd">
+		<ion-fab-button>
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+</ion-content>

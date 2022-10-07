@@ -1,0 +1,59 @@
+<ion-header translucent>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="history.canGoBack" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!history.canGoBack"></ion-menu-button>
+		</ion-buttons>
+		<ion-title *ngIf="item$ | async as row">{{ row.title }}</ion-title>
+		<ion-buttons slot="end">
+			<ng-container *ngIf="user.permissions.edit._user">
+				<ion-button *ngIf="item$ | async as row" [routerLink]="['/_useredit', row.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.edit"></ion-icon>
+				</ion-button>
+			</ng-container>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+	<ng-container *ngIf="item$ | async as row">
+		<div class="item-view" class="ion-padding">
+			<!-- id-->
+			<p class="field field-id" *ngIf="row.id.visible">
+				<span class="field-caption">{{ '__tables._user.fields.id.caption' | translate }}</span>
+				<span>{{ row.id.value }}</span>
+			</p>
+			<!-- nama-->
+			<p class="field field-nama" *ngIf="row.nama.visible">
+				<span class="field-caption">{{ '__tables._user.fields.nama.caption' | translate }}</span>
+				<span>{{ row.nama.value }}</span>
+			</p>
+			<!-- username-->
+			<p class="field field-username" *ngIf="row.username.visible">
+				<span class="field-caption">{{ '__tables._user.fields.username.caption' | translate }}</span>
+				<span>{{ row.username.value }}</span>
+			</p>
+			<!-- password-->
+			<p class="field field-password" *ngIf="row.password.visible">
+				<span class="field-caption">{{ '__tables._user.fields.password.caption' | translate }}</span>
+				<span>{{ row.password.value }}</span>
+			</p>
+			<!-- keterangan-->
+			<p class="field field-keterangan" *ngIf="row.keterangan.visible">
+				<span class="field-caption">{{ '__tables._user.fields.keterangan.caption' | translate }}</span>
+				<span>{{ row.keterangan.value }}</span>
+			</p>
+			<!-- level-->
+			<p class="field field-level" *ngIf="row.level.visible">
+				<span class="field-caption">{{ '__tables._user.fields.level.caption' | translate }}</span>
+				<span>{{ row.level.value }}</span>
+			</p>
+			<!-- pid-->
+			<p class="field field-pid" *ngIf="row.pid.visible">
+				<span class="field-caption">{{ '__tables._user.fields.pid.caption' | translate }}</span>
+				<span>{{ row.pid.value }}</span>
+			</p>
+		</div>
+	</ng-container>
+</ion-content>

@@ -1,0 +1,102 @@
+/*
+ * App CSS
+ * ----------------------------------------------------------------------------
+ * This file contains Sass/CSS that should be used throughout the entire app.
+ * See https://ionicframework.com/docs/theming/basics for details.
+ */
+
+/*BEGIN_SYSTEM_STYLES*/
+
+ionic-selectable-modal ion-toolbar ion-button {
+	text-transform: none;
+}
+
+.field-caption {
+	font-weight: bold;
+}
+
+.field-caption::after {
+	content: ": ";
+}
+
+ion-item .label-stacked {
+	margin-bottom: 2px !important;
+}
+
+ion-label ~ ion-text.field {
+	padding-top: .5rem;
+	padding-bottom: .5rem;
+}
+
+.validate-error.ion-padding {
+	padding-top: .5rem;
+	padding-bottom: .5rem;
+}
+
+file-upload {
+	width: 100%;
+	background: transparent !important;
+	padding: 0 !important;
+	min-height: 0 !important;
+	outline-style: none !important;
+	outline-width: 0 !important;
+	outline-color: invert !important;
+	outline-offset: 0 !important;
+	position: static !important;
+
+	label.upload-input {
+		width: 100%;
+	}
+
+	.upload-input {
+		top: 50% !important;
+		left: 50% !important;
+		margin: 0 !important;
+		transform: translate(-50%, -50%) !important;
+		color: #ffffff !important;
+
+		&:hover {
+			color: #ffffff !important;
+		}
+	}
+}
+
+.button-file,
+.button-gallery,
+.button-camera {
+	ion-icon {
+		font-size: 1rem !important;
+		margin-right: .5rem !important;
+	}
+}
+
+@media (max-width: 576px) {
+	.upload-source {
+		display: none !important;
+	}
+}
+
+.file-list {
+	width: 100%;
+}
+
+ion-button ion-spinner {
+	margin-left: .5rem;
+}
+
+.card-md .text-md-danger p {
+	color: var(--ion-color-danger);
+}
+
+.left-thumbnail {
+	margin-right: .5rem;
+}
+
+.right-thumbnail {
+	margin-left: .5rem;
+}
+/*END_SYSTEM_STYLES*/
+
+/*BEGIN_USER_STYLES*/
+
+/*END_USER_STYLES*/

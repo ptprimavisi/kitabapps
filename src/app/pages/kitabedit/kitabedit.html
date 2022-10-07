@@ -1,0 +1,142 @@
+<ion-header translucent>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="history.canGoBack" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!history.canGoBack"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>{{ 'EDIT' | translate }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+	<form [formGroup]="formGroup" (ngSubmit)="edit()" *ngIf="item$ | async as row">
+		<ion-list lines="full">
+			<!-- id -->
+			<ion-item *ngIf="row.id.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.id.caption' | translate }}</ion-label>
+				<ion-text class="field field-id" *ngIf="row.id.visible">
+					<span>{{ row.id.value }}</span>
+				</ion-text>
+			</ion-item>
+			<!-- judul -->
+			<ion-item *ngIf="row.judul.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.judul.caption' | translate }}</ion-label>
+				<ion-input #judul formControlName="judul" size="30" maxlength="255" placeholder="{{ '__tables.kitab.fields.judul.caption' | translate }}"></ion-input>
+			</ion-item>
+			<!-- pengarang -->
+			<ion-item *ngIf="row.pengarang.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.pengarang.caption' | translate }}</ion-label>
+				<ion-input #pengarang formControlName="pengarang" size="30" maxlength="255" placeholder="{{ '__tables.kitab.fields.pengarang.caption' | translate }}"></ion-input>
+			</ion-item>
+			<!-- keterangan -->
+			<ion-item *ngIf="row.keterangan.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.keterangan.caption' | translate }}</ion-label>
+				<ion-input #keterangan formControlName="keterangan" size="30" maxlength="255" placeholder="{{ '__tables.kitab.fields.keterangan.caption' | translate }}"></ion-input>
+			</ion-item>
+			<!-- sampul -->
+			<ion-item *ngIf="row.sampul.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.sampul.caption' | translate }}</ion-label>
+				<ion-row style="width: 100%;">
+					<!-- File Input -->
+					<ion-col class="button-file">
+						<ion-button type="button" [color]="dbapp.color.secondary" expand="block" size="default">
+							<file-upload #sampul
+								formControlName="sampul"
+								class="ion-justify-content-center"
+								[animation]="false"
+								[multiple]="false"
+								>
+								<ng-template #placeholder>
+									<ion-icon [name]="dbapp.icon.document" class="ion-margin-end"></ion-icon>
+									<span class="upload-text upload-source">{{ 'FILE' | translate }}</span>
+								</ng-template>
+								<ng-template let-i="index" let-file="file" let-control="control" #item></ng-template>
+							</file-upload>
+						</ion-button>
+					</ion-col>
+					<!-- Gallery -->
+					<ion-col class="button-gallery">
+						<ion-button type="button" [color]="dbapp.color.secondary" expand="block" size="default" (click)="selectImage('PHOTOLIBRARY', 'sampul')">
+							<ion-icon [name]="dbapp.icon.image" class="ion-margin-end"></ion-icon>
+							<span class="upload-source">{{ 'GALLERY' | translate }}</span>
+						</ion-button>
+					</ion-col>
+					<!-- Camera -->
+					<ion-col class="button-camera">
+						<ion-button type="button" [color]="dbapp.color.secondary" expand="block" size="default" (click)="selectImage('CAMERA', 'sampul')">
+							<ion-icon [name]="dbapp.icon.camera" class="ion-margin-end"></ion-icon>
+							<span class="upload-source">{{ 'CAMERA' | translate }}</span>
+						</ion-button>
+					</ion-col>
+				</ion-row>
+				<ion-list class="file-list" *ngIf="row.sampul.files.length">
+					<ion-item *ngFor="let file of row.sampul.files">
+						<ion-thumbnail slot="start">
+							<ion-img [src]="file.previewUrl | authFile | async"></ion-img>
+						</ion-thumbnail>
+						<ion-label>
+							{{ file.name }}
+						</ion-label>
+						<ion-button slot="end" fill="clear" (click)="removeFile('sampul', file)">
+							<ion-icon slot="icon-only" [name]="dbapp.icon.delete"></ion-icon>
+						</ion-button>
+					</ion-item>
+				</ion-list>
+				<input type="hidden" formControlName="fn_sampul"/>
+			</ion-item>
+			<div *ngIf="submitted && row.sampul.visible && f.sampul.errors" class="ion-padding validate-error">
+				<ng-container *ngIf="f.sampul.errors">
+					<div *ngIf="row.sampul.errorMessage; else sampulError"><ion-text [color]="dbapp.color.danger">{{ row.sampul.errorMessage }}</ion-text></div>
+					<ng-template #sampulError>
+						<div *ngIf="f.sampul.errors.fileTypes"><ion-text [color]="dbapp.color.danger"><ion-text [translate]="'UPLOAD_FILE_TYPE_ERROR'" [translateParams]="{s: f.sampul.errors.fileTypes[0].actual }"></ion-text></ion-text></div>
+					</ng-template>
+				</ng-container>
+			</div>
+			<!-- thn_terbit -->
+			<ion-item *ngIf="row.thn_terbit.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.thn_terbit.caption' | translate }}</ion-label>
+				<ion-input #thn_terbit formControlName="thn_terbit" size="30" placeholder="{{ '__tables.kitab.fields.thn_terbit.caption' | translate }}"></ion-input>
+			</ion-item>
+			<div *ngIf="submitted && row.thn_terbit.visible && f.thn_terbit.errors" class="ion-padding validate-error">
+				<ng-container *ngIf="f.thn_terbit.errors">
+					<div *ngIf="row.thn_terbit.errorMessage; else thn_terbitError"><ion-text [color]="dbapp.color.danger">{{ row.thn_terbit.errorMessage }}</ion-text></div>
+					<ng-template #thn_terbitError>
+						<div *ngIf="f.thn_terbit.errors.integer"><ion-text [color]="dbapp.color.danger">{{ 'INCORRECT_INTEGER' | translate }}</ion-text></div>
+					</ng-template>
+				</ng-container>
+			</div>
+			<!-- tag -->
+			<ion-item *ngIf="row.tag.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.tag.caption' | translate }}</ion-label>
+				<ion-input #tag formControlName="tag" size="30" maxlength="255" placeholder="{{ '__tables.kitab.fields.tag.caption' | translate }}"></ion-input>
+			</ion-item>
+			<!-- aktif -->
+			<ion-item *ngIf="row.aktif.visible">
+				<ion-label position="stacked">{{ '__tables.kitab.fields.aktif.caption' | translate }}</ion-label>
+				<ionic-selectable #aktif
+					formControlName="aktif"
+					itemValueField="lf"
+					itemTextField="name"
+					[shouldStoreItemValue]="true"
+					clearButtonText="{{ 'CLEAR_BUTTON' | translate }}"
+					closeButtonText="{{ 'CANCEL_BUTTON' | translate }}"
+					confirmButtonText="{{ 'OK_BUTTON' | translate }}"
+					searchPlaceholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"
+					searchFailText="{{ 'SEARCH_FAIL_TEXT' | translate }}"
+					closeButtonSlot="start"
+					itemIconSlot="start"
+					[items]="items.lookupTables.aktif"
+					[canClear]="true"
+					placeholder="{{ '__tables.kitab.fields.aktif.caption' | translate }}"
+					data-field="aktif">
+				</ionic-selectable>
+			</ion-item>
+		</ion-list>
+		<ion-row>
+			<ion-col>
+				<ion-button type="submit" [color]="dbapp.color.primary" expand="block" [disabled]="saving">{{ 'EDIT_BUTTON' | translate }}<ion-spinner *ngIf="saving" [name]="dbapp.icon.save"></ion-spinner></ion-button>
+			</ion-col>
+		</ion-row>
+	</form>
+</ion-content>

@@ -1,0 +1,82 @@
+<ion-header translucent>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="history.canGoBack" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!history.canGoBack"></ion-menu-button>
+		</ion-buttons>
+		<ion-title *ngIf="item$ | async as row">{{ row.title }}</ion-title>
+		<ion-buttons slot="end">
+			<ng-container *ngIf="user.permissions.edit.kitab_detil">
+				<ion-button *ngIf="item$ | async as row" [routerLink]="['/kitab_detiledit', row.id.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.edit"></ion-icon>
+				</ion-button>
+			</ng-container>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+	<ng-container *ngIf="item$ | async as row">
+		<div class="item-view" class="ion-padding">
+			<!-- id-->
+			<p class="field field-id" *ngIf="row.id.visible">
+				<span class="field-caption">{{ '__tables.kitab_detil.fields.id.caption' | translate }}</span>
+				<span>{{ row.id.value }}</span>
+			</p>
+			<!-- pid-->
+			<p class="field field-pid" *ngIf="row.pid.visible">
+				<span class="field-caption">{{ '__tables.kitab_detil.fields.pid.caption' | translate }}</span>
+				<span>{{ row.pid.value }}</span>
+			</p>
+			<!-- judul-->
+			<p class="field field-judul" *ngIf="row.judul.visible">
+				<span class="field-caption">{{ '__tables.kitab_detil.fields.judul.caption' | translate }}</span>
+				<span>{{ row.judul.value }}</span>
+			</p>
+			<!-- isi-->
+			<p class="field field-isi" *ngIf="row.isi.visible" [innerHTML]="row.isi.value"></p>
+			<!-- gambar-->
+			<ng-container *ngIf="row.gambar.visible">
+				<div class="field field-gambar" *ngFor="let file of row.gambar.files">
+						<ng-container [ngSwitch]="file.fileType">
+							<div *ngSwitchCase="'video'">
+								<video [src]="file.url | authFile | async" controls preload="metadata" playsinline class="field-video-player" width="100%">
+									<source [src]="file.url | authFile | async" [type]="file.type">
+								</video>
+							</div>
+							<div *ngSwitchCase="'audio'">
+								<audio [src]="file.url | authFile | async" controls="controls" class="field-audio-player"></audio>
+							</div>
+							<div *ngSwitchCase="'image'">
+								<ion-img [src]="file.viewUrl | authFile | async" class="field-image"></ion-img>
+							</div>
+							<div *ngSwitchCase="'hyperlink'">
+								<a (click)="openUrl(file.url); false" [innerHTML]="file.value" class="field-hyperlink"></a>
+							</div>
+						</ng-container>
+				</div>
+			</ng-container>
+			<!-- keterangan-->
+			<p class="field field-keterangan" *ngIf="row.keterangan.visible">
+				<span class="field-caption">{{ '__tables.kitab_detil.fields.keterangan.caption' | translate }}</span>
+				<span>{{ row.keterangan.value }}</span>
+			</p>
+			<!-- tag-->
+			<p class="field field-tag" *ngIf="row.tag.visible">
+				<span class="field-caption">{{ '__tables.kitab_detil.fields.tag.caption' | translate }}</span>
+				<span>{{ row.tag.value }}</span>
+			</p>
+			<!-- rujukan-->
+			<p class="field field-rujukan" *ngIf="row.rujukan.visible">
+				<span class="field-caption">{{ '__tables.kitab_detil.fields.rujukan.caption' | translate }}</span>
+				<span>{{ row.rujukan.value }}</span>
+			</p>
+			<!-- aktif-->
+			<p class="field field-aktif" *ngIf="row.aktif.visible">
+				<span class="field-caption">{{ '__tables.kitab_detil.fields.aktif.caption' | translate }}</span>
+				<span>{{ row.aktif.value }}</span>
+			</p>
+		</div>
+	</ng-container>
+</ion-content>

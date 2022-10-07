@@ -1,0 +1,65 @@
+<ion-header translucent>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="history.canGoBack" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!history.canGoBack"></ion-menu-button>
+		</ion-buttons>
+		<ion-title *ngIf="!key">{{ 'ADD' | translate }}</ion-title>
+		<ion-title *ngIf="key">{{ 'COPY' | translate }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+	<form [formGroup]="formGroup" (ngSubmit)="add()" *ngIf="item$ | async as row">
+		<ion-list lines="full">
+			<!-- userlevelid -->
+			<ion-item *ngIf="row.userlevelid.visible">
+				<ion-label position="stacked">{{ '__tables.userlevelpermissions.fields.userlevelid.caption' | translate }}</ion-label>
+				<ion-input #userlevelid formControlName="userlevelid" size="30" placeholder="{{ '__tables.userlevelpermissions.fields.userlevelid.caption' | translate }}"></ion-input>
+			</ion-item>
+			<div *ngIf="submitted && row.userlevelid.visible && f.userlevelid.errors" class="ion-padding validate-error">
+				<div *ngIf="f.userlevelid.errors.required">
+					<ion-text [color]="dbapp.color.danger" [translate]="'ENTER_REQUIRED_FIELD'" [translateParams]="{ s: '__tables.userlevelpermissions.fields.userlevelid.caption' | translate }"></ion-text>
+				</div>
+				<ng-container *ngIf="f.userlevelid.errors">
+					<div *ngIf="row.userlevelid.errorMessage; else userlevelidError"><ion-text [color]="dbapp.color.danger">{{ row.userlevelid.errorMessage }}</ion-text></div>
+					<ng-template #userlevelidError>
+						<div *ngIf="f.userlevelid.errors.integer"><ion-text [color]="dbapp.color.danger">{{ 'INCORRECT_INTEGER' | translate }}</ion-text></div>
+					</ng-template>
+				</ng-container>
+			</div>
+			<!-- tablename -->
+			<ion-item *ngIf="row.tablename.visible">
+				<ion-label position="stacked">{{ '__tables.userlevelpermissions.fields.tablename.caption' | translate }}</ion-label>
+				<ion-input #tablename formControlName="tablename" size="30" maxlength="255" placeholder="{{ '__tables.userlevelpermissions.fields.tablename.caption' | translate }}"></ion-input>
+			</ion-item>
+			<div *ngIf="submitted && row.tablename.visible && f.tablename.errors" class="ion-padding validate-error">
+				<div *ngIf="f.tablename.errors.required">
+					<ion-text [color]="dbapp.color.danger" [translate]="'ENTER_REQUIRED_FIELD'" [translateParams]="{ s: '__tables.userlevelpermissions.fields.tablename.caption' | translate }"></ion-text>
+				</div>
+			</div>
+			<!-- permission -->
+			<ion-item *ngIf="row.permission.visible">
+				<ion-label position="stacked">{{ '__tables.userlevelpermissions.fields.permission.caption' | translate }}</ion-label>
+				<ion-input #permission formControlName="permission" size="30" placeholder="{{ '__tables.userlevelpermissions.fields.permission.caption' | translate }}"></ion-input>
+			</ion-item>
+			<div *ngIf="submitted && row.permission.visible && f.permission.errors" class="ion-padding validate-error">
+				<div *ngIf="f.permission.errors.required">
+					<ion-text [color]="dbapp.color.danger" [translate]="'ENTER_REQUIRED_FIELD'" [translateParams]="{ s: '__tables.userlevelpermissions.fields.permission.caption' | translate }"></ion-text>
+				</div>
+				<ng-container *ngIf="f.permission.errors">
+					<div *ngIf="row.permission.errorMessage; else permissionError"><ion-text [color]="dbapp.color.danger">{{ row.permission.errorMessage }}</ion-text></div>
+					<ng-template #permissionError>
+						<div *ngIf="f.permission.errors.integer"><ion-text [color]="dbapp.color.danger">{{ 'INCORRECT_INTEGER' | translate }}</ion-text></div>
+					</ng-template>
+				</ng-container>
+			</div>
+		</ion-list>
+		<ion-row>
+			<ion-col>
+				<ion-button type="submit" [color]="dbapp.color.primary" expand="block" [disabled]="saving">{{ 'ADD_BUTTON' | translate }}<ion-spinner *ngIf="saving" [name]="dbapp.icon.save"></ion-spinner></ion-button>
+			</ion-col>
+		</ion-row>
+	</form>
+</ion-content>

@@ -1,0 +1,70 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button *ngIf="foreignKey" (click)="history.goBack()">
+				<ion-icon slot="icon-only" [name]="dbapp.icon.back"></ion-icon>{{ history.backButtonText }}
+			</ion-button>
+			<ion-menu-button *ngIf="!foreignKey"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+		{{ '__tables.userlevels.caption' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+			[pullingIcon]="dbapp.icon.pull"
+			pullingText="{{ 'PULL_TO_REFRESH' | translate }}"
+			[refreshingSpinner]="dbapp.spinner.refreshing"
+			refreshingText="{{ 'REFRESHING' | translate }}">
+		</ion-refresher-content>
+	</ion-refresher>
+	<ion-list>
+		<ng-template #record let-item="item">
+			<ion-label>
+				<h2>{{ item.title }}</h2>
+				<p class="field field-userlevelid" *ngIf="item.userlevelid.visible">
+					<span class="field-caption">{{ '__tables.userlevels.fields.userlevelid.caption' | translate }}</span>
+					<span>{{ item.userlevelid.value | localNumber:'1.0-0' }}</span>
+				</p>
+				<p class="field field-userlevelname" *ngIf="item.userlevelname.visible">
+					<span class="field-caption">{{ '__tables.userlevels.fields.userlevelname.caption' | translate }}</span>
+					<span>{{ item.userlevelname.value }}</span>
+				</p>
+			</ion-label>
+		</ng-template>
+		<ion-item-sliding *ngFor="let item of currentItems">
+			<ion-item *ngIf="permissions?.view.userlevels" button [routerLink]="['/userlevelsview', item.userlevelid.dbValue]">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item *ngIf="!permissions?.view.userlevels">
+				<ng-container *ngTemplateOutlet="record; context: { item: item }"></ng-container>
+			</ion-item>
+			<ion-item-options>
+				<ion-item-option *ngIf="permissions?.delete.userlevels" [color]="dbapp.color.medium" (click)="delete(item)">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.delete"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.add.userlevels" [color]="dbapp.color.medium" [routerLink]="['/userlevelsadd', item.userlevelid.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.copy"></ion-icon>
+				</ion-item-option>
+				<ion-item-option *ngIf="permissions?.edit.userlevels" [color]="dbapp.color.medium" [routerLink]="['/userlevelsedit', item.userlevelid.dbValue]">
+					<ion-icon slot="icon-only" [name]="dbapp.icon.edit"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+		<ion-infinite-scroll-content
+			[loadingSpinner]="dbapp.spinner.loading"
+			loadingText="{{ 'LOADING_MORE' | translate }}">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+	<ion-fab *ngIf="permissions?.add.userlevels" vertical="bottom" horizontal="end" slot="fixed" routerLink="/userlevelsadd">
+		<ion-fab-button>
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+</ion-content>

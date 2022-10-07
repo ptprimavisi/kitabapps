@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ew-language date="2022/10/7" version="4.0.0" id="en" name="English" desc="English" author="e.World Technology Ltd.">
+  <!-- Do not translate '{{s}}' in the values -->
+  <global>
+    <phrase id="access_denied" value="Access Denied" />
+    <phrase id="account" value="Account" />
+    <phrase id="add" value="Add" />
+    <phrase id="add_button" value="Add" />
+    <phrase id="add_option_text" value="Do you want to add a new option?" />
+    <phrase id="back_button" value="" />
+    <!-- No text by default -->
+    <phrase id="camera" value="Camera" />
+    <phrase id="cancel_button" value="Cancel" />
+    <phrase id="cards_title" value="Social" />
+    <phrase id="clear_button" value="Clear" />
+    <phrase id="close" value="Close" />
+    <phrase id="confirm_password" value="Confirm Password" />
+    <phrase id="copy" value="Copy" />
+    <phrase id="dark_mode" value="Dark mode" />
+    <phrase id="debug" value="Debug" />
+    <phrase id="delete_button" value="Delete" />
+    <phrase id="delete_header" value="Delete?" />
+    <phrase id="details" value="Details" />
+    <phrase id="done_button" value="Done" />
+    <phrase id="drag_files" value="Drag and drop file(s) or click here" />
+    <phrase id="edit" value="Edit" />
+    <phrase id="edit_button" value="Save" />
+    <phrase id="email" value="Email" />
+    <phrase id="enter_password" value="Please enter password" />
+    <phrase id="enter_confirm_password" value="Please enter confirm password" />
+    <phrase id="enter_required_field" value="Please enter required field - {{s}}" />
+    <phrase id="enter_username" value="Please enter username" />
+    <phrase id="error" value="Error" />
+    <phrase id="exit" value="Press back button again to exit" />
+    <phrase id="expired" value="Please sign in again" />
+    <phrase id="failed_to_add" value="Failed to add record" />
+    <phrase id="failed_to_delete" value="Failed to delete record" />
+    <phrase id="failed_to_edit" value="Failed to edit record" />
+    <phrase id="file" value="File" />
+    <phrase id="font_size" value="Font size" />
+    <phrase id="gallery" value="Gallery" />
+    <phrase id="image_source" value="Select image source" />
+    <phrase id="incompatible_api" value="The server API (v{{s}}) is not compatible with this app." />
+    <phrase id="incorrect_credit_card" value="Incorrect credit card number" />
+    <phrase id="incorrect_date" value="Incorrect date ({{s}})" />
+    <phrase id="incorrect_date_ymd" value="Incorrect date (yyyy{{s}}mm{{s}}dd)" />
+    <phrase id="incorrect_date_mdy" value="Incorrect date (mm{{s}}dd{{s}}yyyy)" />
+    <phrase id="incorrect_date_dmy" value="Incorrect date (dd{{s}}mm{{s}}yyyy)" />
+    <phrase id="incorrect_short_date_ymd" value="Incorrect date (yy{{s}}mm{{s}}dd)" />
+    <phrase id="incorrect_short_date_mdy" value="Incorrect date (mm{{s}}dd{{s}}yy)" />
+    <phrase id="incorrect_short_date_dmy" value="Incorrect date (dd{{s}}mm{{s}}yy)" />
+    <phrase id="incorrect_email" value="Incorrect email" />
+    <phrase id="incorrect_field" value="Incorrect format" />
+    <phrase id="incorrect_float" value="Incorrect floating point number" />
+    <phrase id="incorrect_guid" value="Incorrect GUID" />
+    <phrase id="incorrect_integer" value="Incorrect integer" />
+    <phrase id="incorrect_max" value="Number must be smaller than or equal to {{s}}" />
+    <phrase id="incorrect_min" value="Number must be larger than or equal to {{s}}" />
+    <phrase id="incorrect_pattern" value="Incorrect pattern ({{s}})" />
+    <phrase id="incorrect_phone" value="Incorrect phone number" />
+    <phrase id="incorrect_regexp" value="Regular expression not matched" />
+    <phrase id="incorrect_ssn" value="Incorrect social security number" />
+    <phrase id="incorrect_time" value="Incorrect time (hh{{s}}mm({{s}}ss))" />
+    <phrase id="incorrect_zip" value="Incorrect ZIP code" />
+    <phrase id="information" value="Information" />
+    <phrase id="invalid_primary_key" value="Invalid primary key" />
+    <phrase id="language" value="Language" />
+    <phrase id="loading" value="Loading..." />
+    <phrase id="loading_more" value="Loading more..." />
+    <phrase id="login" value="Sign in" />
+    <phrase id="login_title" value="Sign in" />
+    <phrase id="login_error" value="Unable to sign in. Please check your account information and try again." />
+    <phrase id="login_button" value="Sign in" />
+    <phrase id="logout" value="Sign out" />
+    <phrase id="map_title" value="Map" />
+    <phrase id="mismatch_password" value="Mismatch Password" />
+    <phrase id="name" value="Name" />
+    <phrase id="menu" value="Menu" />
+    <phrase id="no_records" value="No records" />
+    <phrase id="ok_button" value="OK" />
+    <phrase id="option" value="Option" />
+    <phrase id="password" value="Password" />
+    <phrase id="password_placeholder" value="Password" />
+    <phrase id="password_required" value="Password is required" />
+    <phrase id="pull_to_refresh" value="Pull to refresh" />
+    <phrase id="read_file_failure" value="Failed to read file" />
+    <phrase id="refreshing" value="Refreshing..." />
+    <phrase id="search_fail_text" value="No items found." />
+    <phrase id="search_title" value="Search" />
+    <phrase id="search_placeholder" value="Search" />
+    <phrase id="server_error" value="Server error" />
+    <phrase id="settings_title" value="Settings" />
+    <phrase id="signup" value="Sign up" />
+    <phrase id="signup_title" value="Sign up" />
+    <phrase id="signup_error" value="Unable to create account. Please check your account information and try again." />
+    <phrase id="signup_button" value="Create" />
+    <phrase id="signup_success" value="Account created. You may login now." />
+    <phrase id="sort" value="Sort" />
+    <phrase id="status" value="Status:" />
+    <phrase id="success" value="Success" />
+    <phrase id="support" value="Support" />
+    <phrase id="time_am" value="AM" />
+    <phrase id="time_pm" value="PM" />
+    <phrase id="unknown_error" value="Unknown error" />
+    <phrase id="update_available" value="Update available" />
+    <phrase id="upload_file_size_error" value="Maximum file size ({{s}} bytes) exceeded" />
+    <phrase id="upload_file_type_error" value="File type ({{s}}) not allowed" />
+    <phrase id="upload_max_count_error" value="Maximum number of files ({{s}}) exceeded" />
+    <phrase id="username" value="Username" />
+    <phrase id="username_placeholder" value="Username" />
+    <phrase id="username_required" value="Username is required" />
+    <phrase id="unauthenticated" value="Please sign in" />
+    <phrase id="unauthorized" value="Unauthorized access" />
+    <phrase id="validation_error" value="There are some errors, please check error messages under each field." />
+    <phrase id="welcome_title" value="Welcome" />
+    <phrase id="welcome_intro" value="Welcome" />
+    <phrase id="warning" value="Warning" />
+    <!-- PHP API -->
+    <phrase id="dupindex" value="Duplicate value '%v' for unique index '%f'" />
+    <phrase id="dupkey" value="Duplicate primary key: '%f'" />
+    <phrase id="invaliduidpwd" value="Incorrect user name or password" />
+    <phrase id="nopermission" value="You do not have permission to access the page." />
+    <phrase id="noaddpermission" value="You do not have permission to add record." />
+    <phrase id="nodeletepermission" value="You do not have permission to delete the record." />
+    <phrase id="noeditpermission" value="You do not have permission to edit the record." />
+    <phrase id="passwordmask" value="********" />
+    <phrase id="uploaderrmsg1" value="The uploaded file exceeds the upload_max_filesize directive in php.ini" />
+    <phrase id="uploaderrmsg2" value="The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form" />
+    <phrase id="uploaderrmsg3" value="The uploaded file was only partially uploaded" />
+    <phrase id="uploaderrmsg4" value="No file was uploaded" />
+    <phrase id="uploaderrmsg6" value="Missing a temporary folder" />
+    <phrase id="uploaderrmsg7" value="Failed to write file to disk" />
+    <phrase id="uploaderrmsg8" value="A PHP extension stopped the file upload" />
+    <phrase id="uploaderrmsgmaxfilesize" value="File is too big" />
+    <phrase id="uploaderrmsgacceptfiletypes" value="File type not allowed" />
+    <phrase id="uploaderrmsgmaxnumberoffiles" value="Maximum number of files exceeded" />
+    <phrase id="useradministrator" value="Administrator" />
+    <phrase id="useranonymous" value="Anonymous" />
+    <phrase id="userdefault" value="Default" />
+  </global>
+  <project>
+    <menu id="6">
+      <phrase id="menutext" value="Daftar Kitab" />
+    </menu>
+    <menu id="1">
+      <phrase id="menutext" value="kitab" />
+    </menu>
+    <menu id="2">
+      <phrase id="menutext" value="kitab detil" />
+    </menu>
+    <menu id="3">
+      <phrase id="menutext" value="Pengguna" />
+    </menu>
+    <menu id="5">
+      <phrase id="menutext" value="Roles" />
+    </menu>
+    <menu id="4">
+      <phrase id="menutext" value="userlevelpermissions" />
+    </menu>
+    <table id="kitab">
+      <phrase id="tblcaption" value="kitab" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="judul">
+        <phrase id="fldcaption" value="Judul" />
+      </field>
+      <field id="pengarang">
+        <phrase id="fldcaption" value="Pengarang" />
+      </field>
+      <field id="keterangan">
+        <phrase id="fldcaption" value="Keterangan" />
+      </field>
+      <field id="sampul">
+        <phrase id="fldcaption" value="Gambar Sampul" />
+      </field>
+      <field id="thn_terbit">
+        <phrase id="fldcaption" value="Thn Terbit" />
+      </field>
+      <field id="tag">
+        <phrase id="fldcaption" value="Tag" />
+      </field>
+      <field id="u_by">
+        <phrase id="fldcaption" value="u by" />
+      </field>
+      <field id="i_by">
+        <phrase id="fldcaption" value="i by" />
+      </field>
+      <field id="validasi_by">
+        <phrase id="fldcaption" value="validasi by" />
+      </field>
+      <field id="u_date">
+        <phrase id="fldcaption" value="u date" />
+      </field>
+      <field id="i_date">
+        <phrase id="fldcaption" value="i date" />
+      </field>
+      <field id="validasi_date">
+        <phrase id="fldcaption" value="validasi date" />
+      </field>
+      <field id="aktif">
+        <phrase id="fldcaption" value="Status" />
+        <phrase id="fldtagvalue1" value="aktif" />
+        <phrase id="fldtagcaption1" value="Aktif" />
+        <phrase id="fldtagvalue2" value="tidak aktif" />
+        <phrase id="fldtagcaption2" value="" />
+      </field>
+    </table>
+    <table id="kitab_detil">
+      <phrase id="tblcaption" value="kitab detil" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+        <phrase id="fldtagvalue1" value="aktif" />
+        <phrase id="fldtagcaption1" value="Aktif" />
+        <phrase id="fldtagvalue2" value="tidak aktif" />
+        <phrase id="fldtagcaption2" value="Tidak Aktif" />
+      </field>
+      <field id="pid">
+        <phrase id="fldcaption" value="Kitab" />
+        <phrase id="fldtaglnkdisplay" value="judul" />
+        <phrase id="fldtaglnkdisp2" value="pengarang" />
+      </field>
+      <field id="pidsub">
+        <phrase id="fldcaption" value="pidsub" />
+      </field>
+      <field id="judul">
+        <phrase id="fldcaption" value="Judul" />
+      </field>
+      <field id="isi">
+        <phrase id="fldcaption" value="Isi" />
+      </field>
+      <field id="gambar">
+        <phrase id="fldcaption" value="Gambar" />
+      </field>
+      <field id="keterangan">
+        <phrase id="fldcaption" value="Keterangan" />
+      </field>
+      <field id="tag">
+        <phrase id="fldcaption" value="Tag" />
+      </field>
+      <field id="rujukan">
+        <phrase id="fldcaption" value="Rujukan" />
+      </field>
+      <field id="aktif">
+        <phrase id="fldcaption" value="Status" />
+        <phrase id="fldtagvalue1" value="aktif" />
+        <phrase id="fldtagcaption1" value="Aktif" />
+        <phrase id="fldtagvalue2" value="tidak aktif" />
+        <phrase id="fldtagcaption2" value="Tidak Aktif" />
+      </field>
+      <field id="u_by">
+        <phrase id="fldcaption" value="u by" />
+      </field>
+      <field id="i_by">
+        <phrase id="fldcaption" value="i by" />
+      </field>
+      <field id="validasi_by">
+        <phrase id="fldcaption" value="validasi by" />
+      </field>
+      <field id="u_date">
+        <phrase id="fldcaption" value="u date" />
+      </field>
+      <field id="i_date">
+        <phrase id="fldcaption" value="i date" />
+      </field>
+      <field id="validasi_date">
+        <phrase id="fldcaption" value="validasi date" />
+      </field>
+    </table>
+    <table id="_user">
+      <phrase id="tblcaption" value="Pengguna" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="nama">
+        <phrase id="fldcaption" value="Nama" />
+      </field>
+      <field id="username">
+        <phrase id="fldcaption" value="Username" />
+      </field>
+      <field id="password">
+        <phrase id="fldcaption" value="Password" />
+      </field>
+      <field id="keterangan">
+        <phrase id="fldcaption" value="Keterangan" />
+      </field>
+      <field id="level">
+        <phrase id="fldcaption" value="Role" />
+        <phrase id="fldtaglnkdisplay" value="userlevelname" />
+      </field>
+      <field id="pid">
+        <phrase id="fldcaption" value="Superior" />
+        <phrase id="fldtaglnkdisplay" value="nama" />
+      </field>
+    </table>
+    <table id="userlevelpermissions">
+      <phrase id="tblcaption" value="userlevelpermissions" />
+      <field id="userlevelid">
+        <phrase id="fldcaption" value="userlevelid" />
+      </field>
+      <field id="tablename">
+        <phrase id="fldcaption" value="tablename" />
+      </field>
+      <field id="permission">
+        <phrase id="fldcaption" value="permission" />
+      </field>
+    </table>
+    <table id="userlevels">
+      <phrase id="tblcaption" value="Roles" />
+      <field id="userlevelid">
+        <phrase id="fldcaption" value="ID" />
+      </field>
+      <field id="userlevelname">
+        <phrase id="fldcaption" value="Role" />
+      </field>
+    </table>
+    <table id="v_kitab">
+      <phrase id="tblcaption" value="Daftar Kitab" />
+      <field id="judul">
+        <phrase id="fldcaption" value="Judul" />
+      </field>
+      <field id="pengarang">
+        <phrase id="fldcaption" value="Pengarang" />
+      </field>
+      <field id="sampul">
+        <phrase id="fldcaption" value="Gambar Sampul" />
+      </field>
+      <field id="thn_terbit">
+        <phrase id="fldcaption" value="Thn Terbit" />
+      </field>
+      <field id="aktif">
+        <phrase id="fldcaption" value="aktif" />
+      </field>
+    </table>
+  </project>
+</ew-language>

@@ -1,0 +1,61 @@
+<ion-app>
+	<ion-split-pane contentId="main-content">
+		<ion-menu contentId="main-content">
+			<ion-header>
+				<ion-toolbar>
+					<ion-title>{{ 'MENU' | translate }}</ion-title>
+				</ion-toolbar>
+			</ion-header>
+			<ion-content>
+				<ion-list lines="none" *ngIf="user.permissions">
+					<ion-menu-toggle autoHide="false" *ngFor="let p of appPages">
+						<ng-template [ngIf]="p.url" [ngIfElse]="noUrl">
+							<ion-item *ngIf="p.allowed" [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
+								<ion-icon slot="start" [name]="p.icon"></ion-icon>
+								<ion-label>{{ p.title }}</ion-label>
+							</ion-item>
+						</ng-template>
+						<ng-template #noUrl>
+							<ion-item *ngIf="p.allowed" detail="false">
+								<ion-icon slot="start" [name]="p.icon"></ion-icon>
+								<ion-label>{{ p.title }}</ion-label>
+							</ion-item>
+						</ng-template>
+					</ion-menu-toggle>
+				</ion-list>
+				<ion-list lines="none">
+					<ion-list-header>
+						{{ 'ACCOUNT' | translate }}
+					</ion-list-header>
+					<ng-container *ngIf="dbapp.useSecurity">
+						<ion-menu-toggle *ngIf="loggedIn" autoHide="false">
+							<ion-item button (click)="logout()" detail="false">
+								<ion-icon slot="start" [name]="dbapp.icon.logout"></ion-icon>
+								<ion-label>
+									{{ 'LOGOUT' | translate }} ({{ user.username }})
+								</ion-label>
+							</ion-item>
+						</ion-menu-toggle>
+						<ion-menu-toggle *ngIf="!loggedIn" autoHide="false">
+							<ion-item routerLink="/login" routerLinkActive="active" routerDirection="root" detail="false">
+								<ion-icon slot="start" [name]="dbapp.icon.login"></ion-icon>
+								<ion-label>
+									{{ 'LOGIN' | translate }}
+								</ion-label>
+							</ion-item>
+						</ion-menu-toggle>
+					</ng-container>
+					<ion-menu-toggle autoHide="false">
+						<ion-item routerLink="/settings" routerLinkActive="active" routerDirection="root" detail="false">
+							<ion-icon slot="start" [name]="dbapp.icon.settings"></ion-icon>
+							<ion-label>
+								{{ 'SETTINGS_TITLE' | translate }}
+							</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+			</ion-content>
+		</ion-menu>
+		<ion-router-outlet id="main-content"></ion-router-outlet>
+	</ion-split-pane>
+</ion-app>
